@@ -1,0 +1,51 @@
+import { _decorator, Component, EventKeyboard, input, Input, KeyCode, Vec2} from 'cc';
+const { ccclass, property } = _decorator;
+
+@ccclass('InputManager')
+export class InputManager extends Component 
+{
+    public rotationInputDirection: Vec2 = new Vec2; //vector that contains the input direction for which way the player should rotate
+
+    protected start(): void
+    {
+        input.on(Input.EventType.KEY_DOWN, (callback: EventKeyboard) => this.KeyboardInputDown(callback)); //the arrow notation is used so that the scope of "this" inside the KeyboardInputDown stays as the InputManager class, and not the class that instantiates the callback
+        input.on(Input.EventType.KEY_UP, (callback: EventKeyboard) => this.KeyboardInputUp(callback));
+    }
+
+    private keyboardInputSwitch(callback: EventKeyboard, keyPressed: boolean): void
+    {
+        switch (callback.keyCode) 
+        {
+            case KeyCode.KEY_A:
+                if(keyPressed) this.rotationInputDirection.x += 1;
+                else this.rotationInputDirection.x -= 1;
+                break;
+            case KeyCode.KEY_D:
+                if(keyPressed) this.rotationInputDirection.x -= 1;
+                else this.rotationInputDirection.x += 1;
+                break;
+            case KeyCode.KEY_W:
+                if(keyPressed) this.rotationInputDirection.y -= 1;
+                else this.rotationInputDirection.y += 1;
+                break;
+            case KeyCode.KEY_S:
+                if(keyPressed) this.rotationInputDirection.y += 1;
+                else this.rotationInputDirection.y -= 1;
+            default:
+                break;
+        }
+
+    }
+    
+    //methods that get registered for callback whenever a key is pressed.
+    //they then pass that information to a switch statement so i don't have to duplicate code into both methods
+    public KeyboardInputDown(callback: EventKeyboard)
+    {
+        this.keyboardInputSwitch(callback, true);
+    }
+    public KeyboardInputUp(callback: EventKeyboard)
+    {
+        this.keyboardInputSwitch(callback, false);
+    }
+  
+}
