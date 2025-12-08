@@ -17,24 +17,37 @@ export class InputManager extends Component
         switch (callback.keyCode) 
         {
             case KeyCode.KEY_A:
-                if(keyPressed) this.rotationInputDirection.x += 1;
+                if(keyPressed) 
+                {
+                    if(!(this.rotationInputDirection.x > 0)) this.rotationInputDirection.x += 1;
+                }
                 else this.rotationInputDirection.x -= 1;
                 break;
             case KeyCode.KEY_D:
-                if(keyPressed) this.rotationInputDirection.x -= 1;
+                if(keyPressed)
+                {
+                    if(!(this.rotationInputDirection.x < 0)) this.rotationInputDirection.x -= 1;
+                }
                 else this.rotationInputDirection.x += 1;
                 break;
             case KeyCode.KEY_W:
-                if(keyPressed) this.rotationInputDirection.y -= 1;
+                if(keyPressed)
+                { 
+                    if(!(this.rotationInputDirection.y !< 0)) this.rotationInputDirection.y -= 1;
+                }
                 else this.rotationInputDirection.y += 1;
                 break;
             case KeyCode.KEY_S:
-                if(keyPressed) this.rotationInputDirection.y += 1;
+                if(keyPressed)
+                {
+                    if(!(this.rotationInputDirection.y !> 0)) this.rotationInputDirection.y += 1;
+                }
                 else this.rotationInputDirection.y -= 1;
+                break;
             default:
                 break;
         }
-
+        
     }
     
     //methods that get registered for callback whenever a key is pressed.
