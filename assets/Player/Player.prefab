@@ -1793,6 +1793,9 @@
     },
     "rollSpeed": 0.25,
     "pitchSpeed": 0.25,
+    "acceleration": 20,
+    "maxSpeed": 25,
+    "drag": 0.1,
     "_id": ""
   },
   {
@@ -1826,6 +1829,7 @@
       "__id__": 0
     },
     "fileId": "c9QjheLapMJJOsitHDSsKN",
+    "instance": null,
     "targetOverrides": null
   }
 ]

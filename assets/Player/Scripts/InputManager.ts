@@ -5,6 +5,8 @@ const { ccclass, property } = _decorator;
 export class InputManager extends Component 
 {
     public rotationInputDirection: Vec2 = new Vec2; //vector that contains the input direction for which way the player should rotate
+    
+    public accelerationInput: boolean = false;
 
     protected start(): void
     {
@@ -15,7 +17,7 @@ export class InputManager extends Component
     private keyboardInputSwitch(callback: EventKeyboard, keyPressed: boolean): void
     {
         switch (callback.keyCode) 
-        {
+        {   //key bindings for rotation
             case KeyCode.KEY_A:
                 if(keyPressed) 
                 {
@@ -44,6 +46,12 @@ export class InputManager extends Component
                 }
                 else this.rotationInputDirection.y -= 1;
                 break;
+            
+            //key bindings for movement
+            case KeyCode.SHIFT_LEFT:
+                this.accelerationInput = keyPressed;
+            break;
+            
             default:
                 break;
         }
