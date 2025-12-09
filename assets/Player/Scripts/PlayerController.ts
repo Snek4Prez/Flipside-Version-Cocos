@@ -7,10 +7,18 @@ export class PlayerController extends Component {
     private _inputManager: InputManager;
 
     //rotation parameters
-    @property({type: CCFloat, tooltip: "rolling speed in pi radians per second"}) 
-    private rollSpeed: number; 
-    @property({type: CCFloat, tooltip: "pitching speed in pi radians per second"}) 
-    private pitchSpeed: number; 
+    @property({type: CCFloat, tooltip: "rolling speed when not accelerating, in pi radians per second"}) 
+    private baseRollSpeed: number; 
+    @property({type: CCFloat, tooltip: "rolling speed during acceleration, in pi radians per second"})
+    private acceleratingRollSpeed: number;
+    @property({type: CCFloat, tooltip: "pitching speed when not accelerating in pi radians per second "}) 
+    private basePitchSpeed: number; 
+    @property({type: CCFloat, tooltip: "pitching speed during accelerating, in pi radians per second "}) 
+    private acceleratingPitchSpeed: number; 
+    @property({type: CCFloat, tooltip: "yawing speed when not accelerating, in pi radians per second "}) 
+    private baseYawSpeed: number; 
+    @property({type: CCFloat, tooltip: "yawing speed during accelerating, in pi radians per second "}) 
+    private acceleratingYawSpeed: number; 
 
     //movement parameters
     @property({type: CCFloat})
@@ -37,13 +45,12 @@ export class PlayerController extends Component {
     {
         let rotationAmount: Quat = new Quat;
          //process pitch rotation
-        rotationAmount.x = this._inputManager.rotationInputDirection.y * this.pitchSpeed * deltaTime * Math.PI;
+        rotationAmount.x = this._inputManager.rotationInputDirection.y * this.dynamicPitchSpeed() * deltaTime * Math.PI;
         //process yaw rotation
-        rotationAmount.y = 0;
+        rotationAmount.y = this._inputManager.rotationInputDirection.z *this.dynamicYawSpeed() * deltaTime * Math.PI;
         //process roll rotation
-        rotationAmount.z = this._inputManager.rotationInputDirection.x * this.rollSpeed * deltaTime * Math.PI;
+        rotationAmount.z = this._inputManager.rotationInputDirection.x * this.dynamicRollSpeed() * deltaTime * Math.PI;
 
-       
         this.node.rotate(rotationAmount, NodeSpace.LOCAL);
     }
 
@@ -67,6 +74,24 @@ export class PlayerController extends Component {
         //use vec3.clone() because otherwise displacement becomes a reference to velocity, and operations done to displacement would in fact be done to velocity
         let displacement: Vec3 = this._velocity.clone();
         this.node.position.add(displacement.multiplyScalar(deltaTime));
+    }
+
+    private dynamicRollSpeed(): number
+    {
+        if(this._inputManager.accelerationInput) return this.acceleratingRollSpeed;
+        else return this.baseRollSpeed;
+    }
+
+    private dynamicPitchSpeed(): number
+    {
+        if(this._inputManager.accelerationInput) return this.acceleratingRollSpeed;
+        else return this.basePitchSpeed;
+    }
+
+    private dynamicYawSpeed(): number
+    {
+        if(this._inputManager.accelerationInput) return this.acceleratingYawSpeed;
+        else return this.baseYawSpeed;
     }
 }
 

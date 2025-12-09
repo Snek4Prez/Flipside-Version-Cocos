@@ -1791,8 +1791,12 @@
     "__prefab": {
       "__id__": 70
     },
-    "rollSpeed": 0.25,
-    "pitchSpeed": 0.25,
+    "baseRollSpeed": 0.55,
+    "acceleratingRollSpeed": 0.2,
+    "basePitchSpeed": 0.4,
+    "acceleratingPitchSpeed": 0.15,
+    "baseYawSpeed": 0.05,
+    "acceleratingYawSpeed": 0.02,
     "acceleration": 20,
     "maxSpeed": 25,
     "drag": 0.1,

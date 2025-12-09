@@ -1,10 +1,10 @@
-import { _decorator, Component, EventKeyboard, input, Input, KeyCode, Vec2} from 'cc';
+import { _decorator, Component, EventKeyboard, input, Input, KeyCode, Vec3} from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('InputManager')
 export class InputManager extends Component 
 {
-    public rotationInputDirection: Vec2 = new Vec2; //vector that contains the input direction for which way the player should rotate
+    public rotationInputDirection: Vec3 = new Vec3; //vector that contains the input direction for which way the player should rotate
     
     public accelerationInput: boolean = false;
 
@@ -18,6 +18,7 @@ export class InputManager extends Component
     {
         switch (callback.keyCode) 
         {   //key bindings for rotation
+            //each binding checks if the input vector is already set in their direction. This is to help prevent a rare scenario where you permanently get stuck rotating in a direction after a glitched keyUp event
             case KeyCode.KEY_A:
                 if(keyPressed) 
                 {
@@ -35,16 +36,30 @@ export class InputManager extends Component
             case KeyCode.KEY_W:
                 if(keyPressed)
                 { 
-                    if(!(this.rotationInputDirection.y !< 0)) this.rotationInputDirection.y -= 1;
+                    if(!(this.rotationInputDirection.y < 0)) this.rotationInputDirection.y -= 1;
                 }
                 else this.rotationInputDirection.y += 1;
                 break;
             case KeyCode.KEY_S:
                 if(keyPressed)
                 {
-                    if(!(this.rotationInputDirection.y !> 0)) this.rotationInputDirection.y += 1;
+                    if(!(this.rotationInputDirection.y > 0)) this.rotationInputDirection.y += 1;
                 }
                 else this.rotationInputDirection.y -= 1;
+                break;
+            case KeyCode.KEY_Q:
+                if(keyPressed)
+                {
+                    if(!(this.rotationInputDirection.z > 0)) this.rotationInputDirection.z += 1;
+                } 
+                else this.rotationInputDirection.z -= 1;
+                break;
+            case KeyCode.KEY_E:
+                if(keyPressed)
+                 {
+                if(!(this.rotationInputDirection.z < 0)) this.rotationInputDirection.z -= 1;
+                }
+                else this.rotationInputDirection.z += 1;
                 break;
             
             //key bindings for movement
@@ -53,7 +68,7 @@ export class InputManager extends Component
             break;
             
             default:
-                break;
+            break;
         }
         
     }
@@ -68,5 +83,5 @@ export class InputManager extends Component
     {
         this.keyboardInputSwitch(callback, false);
     }
-  
+
 }
