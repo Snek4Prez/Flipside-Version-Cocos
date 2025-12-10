@@ -13,6 +13,7 @@ export class HealthController extends Component
         return this._currentHealth;
     }
 
+    /**returns true if the damage kills the object */
     public takeDamage(damage: number): boolean
     {
         this._currentHealth -= damage;
