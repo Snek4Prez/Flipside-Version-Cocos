@@ -1,4 +1,4 @@
-import { _decorator, Component, EventKeyboard, input, Input, KeyCode, Vec3} from 'cc';
+import { _decorator, Component, EventKeyboard, EventMouse, input, Input, KeyCode, Vec3} from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('InputManager')
@@ -7,11 +7,15 @@ export class InputManager extends Component
     public rotationInputDirection: Vec3 = new Vec3; //vector that contains the input direction for which way the player should rotate
     
     public accelerationInput: boolean = false;
+    public fireWeaponInput: boolean = false;
 
     protected start(): void
     {
         input.on(Input.EventType.KEY_DOWN, (callback: EventKeyboard) => this.KeyboardInputDown(callback)); //the arrow notation is used so that the scope of "this" inside the KeyboardInputDown stays as the InputManager class, and not the class that instantiates the callback
         input.on(Input.EventType.KEY_UP, (callback: EventKeyboard) => this.KeyboardInputUp(callback));
+        
+        input.on(Input.EventType.MOUSE_DOWN, (callback: EventMouse) => this.MouseInputDown(callback));
+        input.on(Input.EventType.MOUSE_UP, (callback: EventMouse) => this.MouseInputUp(callback));
     }
 
     private keyboardInputSwitch(callback: EventKeyboard, keyPressed: boolean): void
@@ -65,12 +69,22 @@ export class InputManager extends Component
             //key bindings for movement
             case KeyCode.SHIFT_LEFT:
                 this.accelerationInput = keyPressed;
-            break;
+                break;
             
             default:
-            break;
+                break;
         }
         
+    }
+
+    private mouseInputSwitch(callback: EventMouse, keyPressed: boolean)
+    {
+        switch(callback.getButton())
+        {
+            case EventMouse.BUTTON_LEFT:
+                this.fireWeaponInput = keyPressed;
+                break;
+        }
     }
     
     //methods that get registered for callback whenever a key is pressed.
@@ -82,6 +96,16 @@ export class InputManager extends Component
     public KeyboardInputUp(callback: EventKeyboard)
     {
         this.keyboardInputSwitch(callback, false);
+    }
+
+    
+    public MouseInputDown(callback: EventMouse)
+    {
+        this.mouseInputSwitch(callback, true);
+    }
+    public MouseInputUp(callback: EventMouse)
+    {
+        this.mouseInputSwitch(callback, false);
     }
 
 }

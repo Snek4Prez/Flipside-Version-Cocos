@@ -1,3 +1,35 @@
 {
-  "__version__": "1.0.6"
+  "__version__": "1.0.6",
+  "physics": {
+    "collisionGroups": [
+      {
+        "index": 1,
+        "name": "PLAYER"
+      },
+      {
+        "index": 2,
+        "name": "PLAYER_BULLET"
+      },
+      {
+        "index": 3,
+        "name": "ENEMY"
+      },
+      {
+        "index": 4,
+        "name": "ENEMY_BULLET"
+      },
+      {
+        "index": 5,
+        "name": "TERRAIN"
+      }
+    ],
+    "collisionMatrix": {
+      "0": 1,
+      "1": 56,
+      "2": 40,
+      "3": 38,
+      "4": 34,
+      "5": 30
+    }
+  }
 }

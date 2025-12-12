@@ -1,8 +1,9 @@
-import { _decorator, CCFloat, Component, NodeSpace, Quat, Vec3 } from 'cc';
+import { _decorator, CCFloat, Component, instantiate, NodeSpace, Prefab, Quat, Vec3, Node } from 'cc';
 import { InputManager } from './InputManager';
-const { ccclass, property } = _decorator;
+const { ccclass, property, requireComponent } = _decorator;
 
 @ccclass('PlayerController')
+@requireComponent(InputManager)
 export class PlayerController extends Component {
     private _inputManager: InputManager;
 
@@ -29,6 +30,7 @@ export class PlayerController extends Component {
     private drag: number;
 
     private _velocity: Vec3 = Vec3.ZERO.clone();
+
 
     start(): void
     {

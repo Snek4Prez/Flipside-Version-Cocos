@@ -32,10 +32,16 @@
       },
       {
         "__id__": 71
+      },
+      {
+        "__id__": 73
+      },
+      {
+        "__id__": 75
       }
     ],
     "_prefab": {
-      "__id__": 73
+      "__id__": 77
     },
     "_lpos": {
       "__type__": "cc.Vec3",
@@ -1405,7 +1411,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "barrel end",
+    "_name": "bullet spawn location",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_parent": {
@@ -1823,6 +1829,56 @@
   {
     "__type__": "cc.CompPrefabInfo",
     "fileId": "f480HXkTtGsKt6slc1Y/P6"
+  },
+  {
+    "__type__": "0417cfzIspGU6J8ORMH0w0D",
+    "_name": "",
+    "_objFlags": 0,
+    "__editorExtras__": {},
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "__prefab": {
+      "__id__": 74
+    },
+    "currentWeapon": {
+      "__id__": 75
+    },
+    "_id": ""
+  },
+  {
+    "__type__": "cc.CompPrefabInfo",
+    "fileId": "33MUzHL3dIcKmhF+MUZpu+"
+  },
+  {
+    "__type__": "f836d/EJBlPgYDLxPBrSOMp",
+    "_name": "",
+    "_objFlags": 0,
+    "__editorExtras__": {},
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "__prefab": {
+      "__id__": 76
+    },
+    "fireRate": 5,
+    "damage": 1,
+    "range": 100,
+    "bulletSpeed": 20,
+    "bulletSpawnLocation": {
+      "__id__": 53
+    },
+    "bulletPrefab": {
+      "__uuid__": "56ba1fc0-cccd-480b-9061-d3177aee5590",
+      "__expectedType__": "cc.Prefab"
+    },
+    "_id": ""
+  },
+  {
+    "__type__": "cc.CompPrefabInfo",
+    "fileId": "d6yl4N/6VDWLB7APcW4cVv"
   },
   {
     "__type__": "cc.PrefabInfo",
